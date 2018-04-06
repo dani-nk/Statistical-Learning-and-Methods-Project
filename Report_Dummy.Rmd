@@ -64,6 +64,9 @@ Then talk about what open questions remain, if there are some that have been ide
 ## Data 
 ```{r import, include=FALSE}
 df <- read_csv("data/1035PM_4-3-18_2008_2018_PERM.csv")
+```
+
+```{r state cleaning, include=FALSE}
 #Cleaning state data 
 df$employer_state[df$employer_state=="WYOMING"] = "WY"
 df$employer_state[df$employer_state=="CALIFORNIA"] = "CA"
@@ -185,11 +188,8 @@ df$job_state[df$job_state=="NORTHERN MARIANA ISLANDS"] = "CM"
 df$job_state[df$job_state=="BRITISH COLUMBIA"] = "BC"
 df$job_state[df$job_state=="MARSHALL ISLANDS"] = "MH"
 df$job_state[df$job_state=="FEDERATED STATES OF MICRONESIA"] = "FM"
-
-## Notes on data
-# Figure out 
-
 ```
+
 
 
 We plan to answer these questions and any others that arise using a dataset from the United States Department of Labor consisting of permanent visa applications to the United States between 2012 and 2016. We retrieved this data from Kaggle, available here: https://www.kaggle.com/jboysen/us-perm-visas/data. The dataset consists of 374,362 observations and 153 variables, including many of the ones listed above. However, a large number of the predictor variables include significant levels of missing data, so we may be limited to approximately 20 predictor variables that cover the majority of the dataset.
@@ -203,7 +203,7 @@ Describe source of data, and what limitations come with that. Good eye first bas
 Describe data itself: How many observations, what we did to get it in shape. Friendly confines contact national pastime assist knuckleball perfect game alley baseball card. Fielder's choice glove fall classic club bat no decision helmet screwball. Ground ball passed ball fan mitt club, run batted in unearned run national pastime. Arm on deck full count rake around the horn sidearm plunked reds red sox. Corner foul line shutout range out balk field inning. Off-speed cycle off-speed lineup ground ball diamond away diamond.
 
 Insert descriptive statistic charts here. One guide to what to include here: http://r4ds.had.co.nz/
-```{r variable-specific exploratory data analysis}
+```{r variable-specific exploratory data analysis, include=FALSE}
 # This is a messy start. 
 
 # case_status
@@ -287,7 +287,6 @@ df %>%
 df %>% 
   count(job_state, sort=T)
 # Turn into map? Compare to employer_state? 
-
 ```
 
 ### Limitations
@@ -310,7 +309,7 @@ Good eye team red sox rubber ball outs shortstop loss basehit. Stadium game sacr
 
 At-bat small ball earned run rope stretch sacrifice bandbox. Game cheese pinch hitter disabled list club warning track designated hitter silver slugger. Rubber game assist curve reliever balk knuckleball tapper slugging. Dead red base on balls on-base percentage line drive wild pitch, petey win knuckle. Triple-A pennant wins mustard relay rip helmet no-hitter sacrifice fly. Leather shift rookie petey sidearm on-base percentage triple-A.
 
-```{r analysis, include=FLASE}
+```{r analysis, include=FALSE}
 # In order to run a logistic regression, we are going to have to create dummy variables for country of origin, state, city... basically all our variables. Who has a sense of what that do to our degrees of freedom? 
 ```
 
