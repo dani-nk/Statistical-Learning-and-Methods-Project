@@ -185,6 +185,10 @@ df$job_state[df$job_state=="NORTHERN MARIANA ISLANDS"] = "CM"
 df$job_state[df$job_state=="BRITISH COLUMBIA"] = "BC"
 df$job_state[df$job_state=="MARSHALL ISLANDS"] = "MH"
 df$job_state[df$job_state=="FEDERATED STATES OF MICRONESIA"] = "FM"
+
+## Notes on data
+# Figure out 
+
 ```
 
 
