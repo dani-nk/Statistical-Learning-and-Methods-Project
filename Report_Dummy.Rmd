@@ -310,7 +310,7 @@ Good eye team red sox rubber ball outs shortstop loss basehit. Stadium game sacr
 
 At-bat small ball earned run rope stretch sacrifice bandbox. Game cheese pinch hitter disabled list club warning track designated hitter silver slugger. Rubber game assist curve reliever balk knuckleball tapper slugging. Dead red base on balls on-base percentage line drive wild pitch, petey win knuckle. Triple-A pennant wins mustard relay rip helmet no-hitter sacrifice fly. Leather shift rookie petey sidearm on-base percentage triple-A.
 
-```{r analysis, include=FLASE}
+```{r analysis, include=FALSE}
 # In order to run a logistic regression, we are going to have to create dummy variables for country of origin, state, city... basically all our variables. Who has a sense of what that do to our degrees of freedom? 
 ```
 
