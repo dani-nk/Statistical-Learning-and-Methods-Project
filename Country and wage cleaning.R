@@ -34,4 +34,7 @@ View(data)
 
 newdata_no_typo_wages<-subset(data,annual_wage>=9600)
 View(newdata_no_typo_wages)
+<<<<<<< HEAD
 X1035PM_4_3_18_2008_2018_PERM<-newdata_no_typo_wages
+=======
+>>>>>>> 8a8a346bffeabd723c43c4c77f1c0298ddcd56d9
