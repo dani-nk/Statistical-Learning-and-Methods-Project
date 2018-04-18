@@ -22,42 +22,32 @@ data$annual_wage <- ifelse(data$pw_unit_of_pay=="WK",data$pw_amount*50,data$annu
 data$annual_wage <- ifelse(data$pw_unit_of_pay=="BI",data$pw_amount*25,data$annual_wage)
 data$annual_wage <- ifelse(data$pw_unit_of_pay=="MTH",data$pw_amount*12,data$annual_wage)
 
-View(data)
+#View(data)
 
 #exclude values below 9,600 annual wage, which were entered incorrectly in original data as the wrong unit and are not actually annual wage
 newdata_no_typo_wages<-subset(data,annual_wage>=9600)
-View(newdata_no_typo_wages)
+#View(newdata_no_typo_wages)
 #write to data
-X1035PM_4_3_18_2008_2018_PERM<-newdata_no_typo_wages
-View(X1035PM_4_3_18_2008_2018_PERM)
-
-newdata_no_typo_wages<-subset(data,annual_wage>=9600)
-View(newdata_no_typo_wages)
-X1035PM_4_3_18_2008_2018_PERM<-newdata_no_typo_wages
-View(X1035PM_4_3_18_2008_2018_PERM)
+X1035PM_4_3_18_2008_2018_PERM <- newdata_no_typo_wages
+#View(X1035PM_4_3_18_2008_2018_PERM)
 
 ##Append and clean country data
 #Read in country data from World Bank
 countries <- read.csv("data/4f67b2ca-0887-4ec5-9155-e79b50faf5a8_Data.csv")
-View(countries)
+#View(countries)
 #Read in visa data and create table of country frequencies
-visas <-X1035PM_4_3_18_2008_2018_PERM
-View(visas)
-countries <- read.csv("~/Documents/GitHub/Statistical-Learning-and-Methods-Project/data/4f67b2ca-0887-4ec5-9155-e79b50faf5a8_Data.csv")
-View(countries)
-
-#Read in visa data and create table of country frequencies
-visas <- read.csv("~/Documents/GitHub/Statistical-Learning-and-Methods-Project/data/1035PM_4-3-18_2008_2018_PERM.csv")
+visas <- X1035PM_4_3_18_2008_2018_PERM
+#View(visas)
 visas$country_of_origin <- replace(visas$country_of_origin, visas$country_of_origin=="BURMA (MYANMAR)","MYANMAR")
 visas$country_of_origin <- replace(visas$country_of_origin, visas$country_of_origin=="SOVIET UNION","RUSSIA")
 visas$country_of_origin <- replace(visas$country_of_origin, visas$country_of_origin=="PALESTINE","PALESTINIAN TERRITORIES")
 country.freq <- table(visas$country_of_origin)
-View(country.freq)
+#View(country.freq)
 
 #Drop unnecessary columns and reshape wide
-X1035PM_4_3_18_2008_2018_PERM = subset(countries, Series.Code=='NY.GDP.PCAP.CD' | Series.Code=='SL.UEM.TOTL.ZS' | Series.Code=='SM.POP.NETM',select = -c(Country.Code,Series.Name,X2017..YR2017.,X2010..YR2010.,X2015..YR2015.,X2016..YR2016.))
-countries.wide <- reshape(X1035PM_4_3_18_2008_2018_PERM, idvar = "Country.Name", timevar = "Series.Code", direction = "wide")
-View(countries.wide)
+countrydata <- subset(countries, Series.Code=='NY.GDP.PCAP.CD' | Series.Code=='SL.UEM.TOTL.ZS' | Series.Code=='SM.POP.NETM',select = -c(Country.Code,Series.Name,X2017..YR2017.,X2010..YR2010.,X2015..YR2015.,X2016..YR2016.))
+countries.wide <- reshape(countrydata, idvar = "Country.Name", timevar = "Series.Code", direction = "wide")
+#View(countries.wide)
 colnames(countries.wide) <- c("country_of_origin","gdp_per_cap","unemployment","net_migration")
 
 #Standardize country names to uppercase
@@ -65,9 +55,9 @@ library(dplyr)
 countries.wide <- mutate_all(countries.wide, funs(toupper))
 
 #Pull in population data and clean
-population <- read.csv("data/99ceaeae-170e-4afd-a285-313b9X1035PM_4_3_18_2008_2018_PERM5daa4_Data.csv")
-population <- subset(population,select = c(Country.Name,X2012..YR2012.))
-colnames(population) <- c("country_of_origin","population")
+population <- read_csv("data/99ceaeae-170e-4afd-a285-313b9df5daa4_Data.csv")
+colnames(population) <- c("country_of_origin","X","Y","Z","population")
+population <- subset(population,select = c(country_of_origin,population))
 population <- mutate_all(population, funs(toupper))
 
 #Add population data to create countries2
@@ -133,8 +123,8 @@ my.table2 <- merge(country.freq, countries2, by.x="Var1", by.y="country_of_origi
 #YUGOSLAVIA (No longer exists)
 
 #Add religion
-religion <- read.csv("~/Documents/GitHub/Statistical-Learning-and-Methods-Project/data/Muslim Updated.csv")
-View(religion)
+religion <- read.csv("data/Muslim Updated.csv")
+#View(religion)
 
 #Clean up religion file
 religion <- subset(religion,select = c(Country..region,X..of.pop.that.is.muslim))
@@ -157,21 +147,20 @@ religion$country_of_origin <- replace(religion$country_of_origin, religion$count
 religion$country_of_origin <- replace(religion$country_of_origin, religion$country_of_origin=="CONGO","DEMOCRATIC REPUBLIC OF CONGO")
 
 #Merge religion file into country file
-countries2 <- merge(countries2, religion, by="country_of_origin", all=TRUE)
-View(countries2)
+countries3 <- merge(countries2, religion, by="country_of_origin", all=TRUE)
+#View(countries3)
 
 #Merge into final visas2 dataset
-visas2 <- merge(visas,countries2,by="country_of_origin", all.x=TRUE)
-View(visas2)
-visas2<-X1035PM_4_3_18_2008_2018_PERM
-
-
+visas2 <- merge(visas,countries3,by="country_of_origin", all.x=TRUE)
+#View(visas2)
+X1035PM_4_3_18_2008_2018_PERM <- visas2
 
 ##Reduce outcome variables to two classes
 X1035PM_4_3_18_2008_2018_PERM$naics_code_new <- as.numeric(substr(as.character(X1035PM_4_3_18_2008_2018_PERM$naics_code), 1, 2))
 X1035PM_4_3_18_2008_2018_PERM$case_status_new <- replace(X1035PM_4_3_18_2008_2018_PERM$case_status, X1035PM_4_3_18_2008_2018_PERM$case_status=="CERTIFIED-EXPIRED","CERTIFIED")
 no_withdrawn<-subset(X1035PM_4_3_18_2008_2018_PERM, case_status_new=="CERTIFIED" | case_status_new=="DENIED")
 no_withdrawn$case_status_quant <- ifelse(no_withdrawn$case_status_new=="CERTIFIED",1,0)
+X1035PM_4_3_18_2008_2018_PERM <- no_withdrawn
 
 ##Fix state names
 #Cleaning state data 
