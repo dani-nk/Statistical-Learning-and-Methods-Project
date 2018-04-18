@@ -13,7 +13,7 @@ data$pw_unit_of_pay <- replace(data$pw_unit_of_pay,data$pw_unit_of_pay=="BI-WEEK
 data$pw_unit_of_pay <- replace(data$pw_unit_of_pay,data$pw_unit_of_pay=="YEAR","YR")
 data$pw_unit_of_pay <- replace(data$pw_unit_of_pay,data$pw_unit_of_pay=="MONTH","MTH")
 
-#check to make sure transformations worked
+#check to make sure transformations worked as they should
 table(data$pw_unit_of_pay)
 
 #Translate all units of pay into yearly using the following translations: YR = 2000 HR, 50 WK, 25 BI, 12 MTH
