@@ -55,7 +55,7 @@ library(dplyr)
 countries.wide <- mutate_all(countries.wide, funs(toupper))
 
 #Pull in population data and clean
-population <- read_csv("data/99ceaeae-170e-4afd-a285-313b9df5daa4_Data.csv")
+population <- read.csv("data/99ceaeae-170e-4afd-a285-313b9df5daa4_Data.csv")
 colnames(population) <- c("country_of_origin","X","Y","Z","population")
 population <- subset(population,select = c(country_of_origin,population))
 population <- mutate_all(population, funs(toupper))
@@ -278,6 +278,6 @@ X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=
 X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="PUERTO RICO"] = "PR"
 X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="VIRGIN ISLANDS"] = "VI"
 table(X1035PM_4_3_18_2008_2018_PERM$employer_state)
-View(X1035PM_4_3_18_2008_2018_PERM)
 
 visas <- X1035PM_4_3_18_2008_2018_PERM
+View(visas)
