@@ -1,5 +1,6 @@
 ###Cleaning Script
 ##Clean wage data to YR units and to remove incorrectly entered observations
+library(readr)
 #Import dataset from GitHub Files
 data<-read.csv("data/1035PM_4-3-18_2008_2018_PERM.csv")
 data$country_of_origin <- toupper(data$country_of_origin)
