@@ -1,0 +1,81 @@
+---
+title: "Playing"
+output: pdf_document
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, warning = FALSE, message = FALSE)
+library(readxl)
+library(tidyverse)
+
+# All data from https://www.foreignlaborcert.doleta.gov/performancedata.cfm
+# If you download these and put them in your GitHub folder, this should work. 
+FY08 <- read_excel("~/Documents/GitHub/PERM_FY2008.xlsx")
+FY09 <- read_excel("~/Documents/GitHub/PERM_FY2009.xlsx")
+FY10 <- read_excel("~/Documents/GitHub/PERM_FY2010.xlsx")
+FY11 <- read_excel("~/Documents/GitHub/PERM_FY2011.xlsx")
+FY12 <- read_excel("~/Documents/GitHub/PERM_FY2012_Q4.xlsx")
+FY13 <- read_excel("~/Documents/GitHub/PERM_FY2013.xlsx")
+FY14 <- read_excel("~/Documents/GitHub/PERM_FY14_Q4.xlsx")
+FY15 <- read_excel("~/Documents/GitHub/PERM_Disclosure_Data_FY15_Q4.xlsx")
+FY16 <- read_excel("~/Documents/GitHub/PERM_Disclosure_Data_FY16.xlsx")
+FY17 <- read_excel("~/Documents/GitHub/PERM_Disclosure_Data_FY17.xlsx")
+FY18 <- read_excel("~/Documents/GitHub/PERM_FY2018.xlsx")
+
+dfl <- list(FY08,FY09,FY10,FY11,FY12,FY13,FY14,FY15,FY16,FY17)
+
+visastest <- dfl %>%
+      lapply(function(x) mutate_all(x, funs('as.character'))) %>%
+      bind_rows() %>% 
+      mutate_all(funs('as.factor'))
+
+ls(FY08)
+names(FY08) <- gsub(" ", "_", names(FY08))
+FY08$EMPLOYER_POSTAL_CODE <- as.character(FY08$EMPLOYER_POSTAL_CODE)
+FY08$`2007_NAICS_US_CODE` <- as.character(FY08$`2007_NAICS_US_CODE`)
+FY08 <- rename(FY08, COUNTRY_OF_CITIZENSHIP = COUNTRY_OF_CITZENSHIP)
+
+ls(FY09)
+names(FY09) <- gsub(" ", "_", names(FY09))
+FY09$`2007_NAICS_US_CODE` <- as.character(FY09$`2007_NAICS_US_CODE`)
+FY09 <- rename(FY09, COUNTRY_OF_CITIZENSHIP = COUNTRY_OF_CITZENSHIP)
+FY0809 <- bind_rows(FY08,FY09)
+
+ls(FY10)
+FY10$EMPLOYER_POSTAL_CODE <- as.character(FY10$EMPLOYER_POSTAL_CODE)
+FY10$`2007_NAICS_US_CODE` <- as.character(FY10$`2007_NAICS_US_CODE`)
+FY10 <- rename(FY10, CASE_NUMBER = CASE_NO, COUNTRY_OF_CITIZENSHIP = COUNTRY_OF_CITZENSHIP)
+FY0810 <- bind_rows(FY0809,FY10)
+
+ls(FY11)
+FY11 <- rename(FY11, CASE_NUMBER = CASE_NO, COUNTRY_OF_CITIZENSHIP = COUNTRY_OF_CITZENSHIP)
+FY11$EMPLOYER_POSTAL_CODE <- as.character(FY11$EMPLOYER_POSTAL_CODE)
+FY0811 <- bind_rows(FY0810,FY11)
+
+
+ls(FY12)
+FY12 <- rename(FY12, CASE_NUMBER = CASE_NO, COUNTRY_OF_CITIZENSHIP = COUNTRY_OF_CITZENSHIP)
+FY12$EMPLOYER_POSTAL_CODE <- as.character(FY12$EMPLOYER_POSTAL_CODE)
+FY0812 <- bind_rows(FY0811,FY12)
+
+ls(FY13)
+FY13 <- set_names(FY13, toupper(names(FY13)))
+names(FY13) <- gsub(" ", "_", names(FY13))
+FY13 <- rename(FY13, CASE_NUMBER = CASE_NO, WAGE_OFFER_FROM_9089 = WAGE_OFFERED_FROM_9089, WAGE_OFFER_TO_9089 = WAGE_OFFERED_TO_9089)
+FY0813 <- bind_rows(FY0812,FY13)
+
+ls(FY14)
+FY14 <- set_names(FY13, toupper(names(FY14)))
+FY14 <- rename(FY14, CASE_NUMBER = CASE_NO, WAGE_OFFER_FROM_9089 = WAGE_OFFERED_FROM_9089, WAGE_OFFER_TO_9089 = WAGE_OFFERED_TO_9089, WAGE_OFFER_UNIT_OF_PAY_9089 = WAGE_OFFERED_UNIT_OF_PAY_9089)
+
+FY0813$PW_AMOUNT_9089 <- as.character(FY0813$PW_AMOUNT_9089)
+FY0813$PW_UNIT_OF_PAY_9089 <- as.numeric(FY0813$PW_UNIT_OF_PAY_9089)
+FY0813$WAGE_OFFER_FROM_9089 <- as.character(FY0813$WAGE_OFFER_FROM_9089)
+FY0813$WAGE_OFFER_UNIT_OF_PAY_9089 <- as.numeric(FY0813$WAGE_OFFER_UNIT_OF_PAY_9089)
+FY0814 <- bind_rows(FY0813,FY14)
+
+ls(FY15)
+ls(FY16)
+ls(FY17)
+ls(FY18)
+```
