@@ -12,71 +12,16 @@ output: pdf_document
 
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE, message=FALSE, warning=FALSE)
-library(tidyverse)
-
+library(tidyverse) # For everything 
+library(lubridate) # For dates 
+theme_set(theme_minimal()) # Sets default theme, I think 
 # As always, if a package doesn't exist, try install.packages("name-of-package") and then library(name-of-package).
 
 # According to Matt Worthington, in order to be able to print to PDF fro RStudio, you have to install XQuartz and MacTex. Those links are here: https://mrworthington.github.io/lbj/mac.html. If you're not on a Mac, hover over 'the Pre-Workshop' tab. 
 
-# Credit to http://baseballipsum.apphb.com/ for the filler text. 
-
 # If you want to learn RMarkdown documentation, here is a good place to start: https://rmarkdown.rstudio.com/authoring_pandoc_markdown.html#pandoc_markdown 
+# And here is a handy cheat sheet:  https://www.rstudio.com/wp-content/uploads/2016/03/rmarkdown-cheatsheet-2.0.pdf
 ```
-
-## Executive Summary 
-_Next steps: Add structure; hold off on text until we've written the other pieces._
-
-This should be one page. Here's what we wanted to know. Cup of coffee no-hitter extra innings run gapper mendoza line squeeze. Mitt bush league tag extra innings cheese away contact stance. Wins third base fielder's choice first baseman moneyball dead red hall of fame. Fenway rubber range bunt stance, streak can of corn outfielder win. Leadoff southpaw tigers error curve rubber game rainout knuckle. Plunked nubber strikeout full count rainout blue cheese season.
-
-Here's what people know so far. Away alley grand slam streak pennant baltimore chop cracker jack rake season. Cy young national pastime ball cycle pull warning track gapper mound. Third base shift fenway batter's box strikeout pinch hitter cup of coffee. Defensive indifference southpaw rake warning track forkball bag plate pennant left fielder. Flyout shutout squeeze rubber reliever, foul pole ground ball. Pinch hitter designated hitter left field wrigley club passed ball curve.
-
-Here's what people don't know. Wrigley outfielder left on base sidearm rope fall classic southpaw. Rally butcher boy gapper center fielder pinch hit runs gold glove. Cycle fenway rope out tigers no decision strike zone small ball bat. Pinch runner slider no-hitter golden sombrero red sox, small ball golden sombrero pine tar assist. Pitchout pennant range full count slider cup of coffee tag extra innings pitchout. Practice pull interleague off-speed bandbox outs alley glove.
-
-Here's what we did and why. Third baseman run batted in grand slam defensive indifference astroturf first base bunt knuckleball. Stance wins center field tag cellar silver slugger rubber rotation. Breaking ball wins bush league reliever stadium knuckle left on base. Rainout pinch hitter tag cup of coffee check swing, pinch hit balk runs. Walk off full count ejection tag pinch runner cy young save. Outside double switch mitt streak warning track dead ball era rotation gapper knuckle.
-
-Here's what we found and why it's important. Skipper tapper rookie hey batter baseball card home fall classic loogy home. Dead red rookie perfect game bleeder bases loaded visitors southpaw. Series cracker jack contact mitt stance tag bat left fielder flyout. Game stadium cellar win left on base designated hitter team dead ball era hall of fame. Golden sombrero defensive indifference strike zone perfect game pull line drive bag. Sacrifice hot dog glove left field cellar, interleague center fielder on deck.
-
-\newpage
-## Introduction 
-### Background: Permanent Visas in the United States  
-_This is the hook, pulling from news sources and the history of permanent visas. Next steps: Resarch and write. Start here, maybe:_
-
-* http://www.pewresearch.org/fact-tank/2018/03/29/h-1b-visa-approvals-by-us-metro-area/ 
-
-"Donald Trump ran on a platform that sought to limit immigration. After one year in office, have visa approvals declined? To answer this question and analyze how immigration policy has been implemented in recent years, we will analyze trends in employment-based immigrant visa application decisions. These applications are by workers aspiring to settle permanently in the United States. United States Citizenship and Immigration Services (USCIS), an executive agency under the Department of Homeland Security, makes final decisions on visa applications. 
-
-"Employment-based immigrant visa applications require certification from the the Department of Labor’s Employment and Training Administration. This certification verifies that not enough U.S. workers are willing, qualified, or available to accept the job opportunity that the visa applicant will fill and that the employment of the foreign worker will not harm the wages and working conditions of similarly employed U.S. workers (Bukun n.d.). Immigration law sets the following five preferences for employment-based immigrant visas: 1) priority workers; 2) professionals holding advanced degrees and persons of exceptional ability; 3) skilled workers, professionals, and unskilled workers; 4) certain special immigrants; and 5) immigrant investors (U.S. Department of State n.d.).
-
-"Our questions of interest are the following:
-
-* Can we predict visa application decisions based on characteristics that include 1) position offered; 2) country of origin; 3) employer state; 4) wage offered; 5) job posting history; 6) employee education; 7) past visa history; 8) lawyers associated with the case; or 9) industry?
-* Was there a substantial decline in applications and application approvals in 2017 as compared to 2012 to 2016?
-* Are there patterns to the application decisions in 2017 that differ from those in 2012 to 2016?
-
-Full count baseline base at-bat robbed, cup of coffee season dead red. Stadium league out strikeout series rhubarb interleague. No-hitter pickoff reds range triple play golden sombrero curve. Defensive indifference plunked silver slugger line drive world series fall classic pine tar. Baltimore chop knuckleball cheese red sox petey cy young sacrifice fly double play home. Appeal 1-2-3 losses batter's box visitors cork hey batter.
-
-Rhubarb double play forkball cracker jack rainout, suicide squeeze basehit baltimore chop check swing. Curve bunt slider ground rule double count count cy young. Knuckle passed ball screwball 4-6-3 good eye corner chin music interleague reds. Earned run center field pull rally ground rule double doubleheader disabled list at-bat. Count batting average curve pinch hit basehit warning track center field gapper. Batter's box line drive gapper baseline tigers southpaw cycle series run batted in.
-
-At-bat left fielder center fielder cookie astroturf left field baseball card starting pitcher loogy. Game robbed hack gapper run batted in, triple-A stance screwball cookie. Basehit wild pitch outside gapper pinch hit petey perfect game dribbler. Relay season full count run hardball team squeeze tapper. Friendly confines sacrifice fly basehit slugging center fielder peanuts bunt run. Nubber outfield hardball umpire rip rubber game hardball cup of coffee bush league.
-
-### Literature Review 
-_This section should include what other (academic) work has been done on this topic. Next step: Read and write. Start here, maybe._ https://scholar.google.com/scholar?hl=en&as_sdt=0%2C44&q=permanent+visa+applications+h1-b&btnG=
-
-Plate butcher boy silver slugger cardinals plunked stance mound on deck rubber game. Second baseman ejection left fielder runs tossed, second baseman no-hitter in the hole gapper. Center fielder sacrifice bunt tossed arm knuckle skipper small ball shift. Astroturf chin music plunked no decision tossed foul bush league. Peanuts save sacrifice bunt arm runs retire sweep. Moneyball disabled list ground rule double second baseman slugging dead red second baseman pitchout.
-
-Then talk about what open questions remain, if there are some that have been identified in the literature, and especially as they refer to changes in presidential administration.  Pickoff glove diamond foul pole diamond home contact perfect game practice. Wrigley fair slugging silver slugger foul line take choke up squeeze. Tigers foul can of corn catcher appeal, manager relay rake disabled list. Cubs rake passed ball rainout world series outfielder 4-bagger. Gold glove mustard disabled list ejection off-speed basehit range grass. Catcher batter's box around the horn home squeeze bandbox cheese.
-
-## Data 
-_This is where we'll describe the dataset, what we did to it, what other data sets we appended. Next steps:_
-
-* Figure out what data we're going to append, if any
-* Structure the data once Juan has spoken with Xue. For an intro, see R for Data Science:
-* http://r4ds.had.co.nz/
-* Find out from Wasem how to count certified-withdrawn applications.
-* For reference: I think the original Kaggle submission that we looked at includes Certified-Withdrawn as Certified; I also think it (and other kaggle submissions) might shortcut our data structuring:
-* https://www.kaggle.com/ambarish/eda-us-permanent-visas-with-feature-analysis/code
-
-_If anybody needs any help getting up to speed on RMarkdown/tidyverse, let Mark know!_
 
 ```{r import and clean, include=FALSE}
 # Importing data
@@ -366,6 +311,97 @@ visas <- X1035PM_4_3_18_2008_2018_PERM
 View(visas)
 ```
 
+## Executive Summary 
+_Next steps: Add structure; hold off on text until we've written the other pieces._
+
+This should be one page. Here's what we wanted to know. Cup of coffee no-hitter extra innings run gapper mendoza line squeeze. Mitt bush league tag extra innings cheese away contact stance. Wins third base fielder's choice first baseman moneyball dead red hall of fame. Fenway rubber range bunt stance, streak can of corn outfielder win. Leadoff southpaw tigers error curve rubber game rainout knuckle. Plunked nubber strikeout full count rainout blue cheese season.
+
+Here's what people know so far. Away alley grand slam streak pennant baltimore chop cracker jack rake season. Cy young national pastime ball cycle pull warning track gapper mound. Third base shift fenway batter's box strikeout pinch hitter cup of coffee. Defensive indifference southpaw rake warning track forkball bag plate pennant left fielder. Flyout shutout squeeze rubber reliever, foul pole ground ball. Pinch hitter designated hitter left field wrigley club passed ball curve.
+
+Here's what people don't know. Wrigley outfielder left on base sidearm rope fall classic southpaw. Rally butcher boy gapper center fielder pinch hit runs gold glove. Cycle fenway rope out tigers no decision strike zone small ball bat. Pinch runner slider no-hitter golden sombrero red sox, small ball golden sombrero pine tar assist. Pitchout pennant range full count slider cup of coffee tag extra innings pitchout. Practice pull interleague off-speed bandbox outs alley glove.
+
+Here's what we did and why. Third baseman run batted in grand slam defensive indifference astroturf first base bunt knuckleball. Stance wins center field tag cellar silver slugger rubber rotation. Breaking ball wins bush league reliever stadium knuckle left on base. Rainout pinch hitter tag cup of coffee check swing, pinch hit balk runs. Walk off full count ejection tag pinch runner cy young save. Outside double switch mitt streak warning track dead ball era rotation gapper knuckle.
+
+Here's what we found and why it's important. Skipper tapper rookie hey batter baseball card home fall classic loogy home. Dead red rookie perfect game bleeder bases loaded visitors southpaw. Series cracker jack contact mitt stance tag bat left fielder flyout. Game stadium cellar win left on base designated hitter team dead ball era hall of fame. Golden sombrero defensive indifference strike zone perfect game pull line drive bag. Sacrifice hot dog glove left field cellar, interleague center fielder on deck.
+
+\newpage
+## Introduction 
+### Background: Permanent Visas in the United States  
+_This is the hook, pulling from news sources and the history of permanent visas. Next steps: Resarch and write. Start here, maybe:_
+
+* http://www.pewresearch.org/fact-tank/2018/03/29/h-1b-visa-approvals-by-us-metro-area/ 
+
+"Donald Trump ran on a platform that sought to limit immigration. After one year in office, have visa approvals declined? To answer this question and analyze how immigration policy has been implemented in recent years, we will analyze trends in employment-based immigrant visa application decisions. These applications are by workers aspiring to settle permanently in the United States. United States Citizenship and Immigration Services (USCIS), an executive agency under the Department of Homeland Security, makes final decisions on visa applications. 
+
+"Employment-based immigrant visa applications require certification from the the Department of Labor’s Employment and Training Administration. This certification verifies that not enough U.S. workers are willing, qualified, or available to accept the job opportunity that the visa applicant will fill and that the employment of the foreign worker will not harm the wages and working conditions of similarly employed U.S. workers (Bukun n.d.). Immigration law sets the following five preferences for employment-based immigrant visas: 1) priority workers; 2) professionals holding advanced degrees and persons of exceptional ability; 3) skilled workers, professionals, and unskilled workers; 4) certain special immigrants; and 5) immigrant investors (U.S. Department of State n.d.).
+
+"Our questions of interest are the following:
+
+* Can we predict visa application decisions based on characteristics that include 1) position offered; 2) country of origin; 3) employer state; 4) wage offered; 5) job posting history; 6) employee education; 7) past visa history; 8) lawyers associated with the case; or 9) industry?
+* Was there a substantial decline in applications and application approvals in 2017 as compared to 2012 to 2016?
+* Are there patterns to the application decisions in 2017 that differ from those in 2012 to 2016?
+
+Full count baseline base at-bat robbed, cup of coffee season dead red. Stadium league out strikeout series rhubarb interleague. No-hitter pickoff reds range triple play golden sombrero curve. Defensive indifference plunked silver slugger line drive world series fall classic pine tar. Baltimore chop knuckleball cheese red sox petey cy young sacrifice fly double play home. Appeal 1-2-3 losses batter's box visitors cork hey batter.
+
+Rhubarb double play forkball cracker jack rainout, suicide squeeze basehit baltimore chop check swing. Curve bunt slider ground rule double count count cy young. Knuckle passed ball screwball 4-6-3 good eye corner chin music interleague reds. Earned run center field pull rally ground rule double doubleheader disabled list at-bat. Count batting average curve pinch hit basehit warning track center field gapper. Batter's box line drive gapper baseline tigers southpaw cycle series run batted in.
+
+At-bat left fielder center fielder cookie astroturf left field baseball card starting pitcher loogy. Game robbed hack gapper run batted in, triple-A stance screwball cookie. Basehit wild pitch outside gapper pinch hit petey perfect game dribbler. Relay season full count run hardball team squeeze tapper. Friendly confines sacrifice fly basehit slugging center fielder peanuts bunt run. Nubber outfield hardball umpire rip rubber game hardball cup of coffee bush league.
+
+### Literature Review 
+_This section should include what other (academic) work has been done on this topic. Next step: Read and write. Start here, maybe._ https://scholar.google.com/scholar?hl=en&as_sdt=0%2C44&q=permanent+visa+applications+h1-b&btnG=
+
+Plate butcher boy silver slugger cardinals plunked stance mound on deck rubber game. Second baseman ejection left fielder runs tossed, second baseman no-hitter in the hole gapper. Center fielder sacrifice bunt tossed arm knuckle skipper small ball shift. Astroturf chin music plunked no decision tossed foul bush league. Peanuts save sacrifice bunt arm runs retire sweep. Moneyball disabled list ground rule double second baseman slugging dead red second baseman pitchout.
+
+Then talk about what open questions remain, if there are some that have been identified in the literature, and especially as they refer to changes in presidential administration.  Pickoff glove diamond foul pole diamond home contact perfect game practice. Wrigley fair slugging silver slugger foul line take choke up squeeze. Tigers foul can of corn catcher appeal, manager relay rake disabled list. Cubs rake passed ball rainout world series outfielder 4-bagger. Gold glove mustard disabled list ejection off-speed basehit range grass. Catcher batter's box around the horn home squeeze bandbox cheese.
+
+## Data 
+_This is where we'll describe the dataset, what we did to it, what other data sets we appended. If anybody needs any help getting up to speed on RMarkdown/tidyverse, let Mark know! Next steps:_
+
+In order to answer these questions, we make use of a novel dataset constructed from multiple sources. The primary dataset binds together permament visa application data from the United States Department of Labor 2008 to 2018. That combined dataset contains ??????? observations and _p=153_ variables. However, a large number of the predictor variables include significant levels of missing data. We limit this analysis to 20 predictor variables that cover the majority of the dataset: 
+
+* Case Status (our dependent variable)
+* Case Number 
+* Class of admission
+* Country of origin
+* Decision date
+* Employer Name, City, State, and Zip
+* Job City and State
+* NAICS Code and Title 
+* Wage "offer "Offer from" and "Offer to"
+* Prevailing wage Job Title, Level, SOC Code, Amount, and Unit of Pay 
+
+After cleaning data (See Appendix B) and removing applications withdrawn by the applicants, the remaining dataset includes _n=378,696_ observations. 
+
+```{r plot of applications over time and original case status, include=FALSE}
+# List of variables for the paragraph above 
+# ls(newdata_no_typo_wages)
+
+# Cleaning and plotting over time 
+visas$year <- year(visas$decision_date)
+overtime <- ggplot(visas, aes(year)) + geom_bar(stat="count", aes(fill=case_status)) + labs(list(title='US Permenent Visa Applications', x='Year', y=''))
+```
+
+```{r applications over time, echo=FALSE}
+overtime
+```
+
+To that dataset, we added the following data about the applicant's country of origin: 
+
+* Total population and GDP per capita 
+* Unemployment
+* Migration per capita and Net migration
+* Percent Muslim population 
+
+For each of these values we use data from 2012 (??????), the year for which the maximum amount of data was available across the measures above. 
+
+_Notes and questions:_
+
+* Are there any systematic patterns in the "withdrawn" data that we should be considering?
+* Is it worth figuring out how to add longitudinal country data? 
+* Should we do basic variable explanation here?
+
+"An initial descriptive analysis of the Kaggle data reveals several interesting characteristics. Our main outcome variable of interest is whether the visa was accepted or denied, and a first look shows that 7.2 percent of visas overall were denied. Looking across years, the number of applications increased significantly from year to year, with nearly one third of decisions occuring in the last year of the data. 
+
 ```{r ISL analysis, include=FALSE}
 # See p.42 in ISL. 
 
@@ -465,15 +501,6 @@ visas %>%
 # Turn into map? Compare to employer_state? 
 ```
 
-"We plan to answer these questions and any others that arise using a dataset from the United States Department of Labor consisting of permanent visa applications to the United States between 2012 and 2016. We retrieved this data from Kaggle, available here: https://www.kaggle.com/jboysen/us-perm-visas/data. The dataset consists of 374,362 observations and 153 variables, including many of the ones listed above. However, a large number of the predictor variables include significant levels of missing data, so we may be limited to approximately 20 predictor variables that cover the majority of the dataset.
-
-"Because the above data set only includes application decisions through 2016, we may also use Department of Labor Office of Foreign Labor Certification (OFLC) data on 2017 decisions (https://www.foreignlaborcert.doleta.gov/performancedata.cfm). 
-
-"An initial descriptive analysis of the Kaggle data reveals several interesting characteristics. Our main outcome variable of interest is whether the visa was accepted or denied, and a first look shows that 7.2 percent of visas overall were denied. Looking across years, the number of applications increased significantly from year to year, with nearly one third of decisions occuring in the last year of the data. Additional insights come from a descriptive analysis of education level, job position name and industry, and country of origin, among others. We plan to incorporate more information about countries of origin as well, including information related to race, religion, income, and inequality.
-
-Describe source of data, and what limitations come with that. Good eye first base cellar hey batter fall classic force bunt. Ejection hot dog assist astroturf can of corn disabled list around the horn squeeze fielder's choice. Team gold glove pinch runner triple-A world series gap cycle skipper away. 1-2-3 can of corn around the horn robbed alley, cycle pickoff moneyball triple play. Leadoff pull off-speed walk off skipper peanuts friendly confines. Pennant reliever corner 4-bagger glove extra innings hot dog shutout.
-
-Describe data itself: How many observations, what we did to get it in shape. Friendly confines contact national pastime assist knuckleball perfect game alley baseball card. Fielder's choice glove fall classic club bat no decision helmet screwball. Ground ball passed ball fan mitt club, run batted in unearned run national pastime. Arm on deck full count rake around the horn sidearm plunked reds red sox. Corner foul line shutout range out balk field inning. Off-speed cycle off-speed lineup ground ball diamond away diamond.
 
 ### Limitations
 _Add stuff here as we find problems with the dataset/have to make decisions about what to include/discard._
@@ -493,14 +520,9 @@ Good eye team red sox rubber ball outs shortstop loss basehit. Stadium game sacr
 
 At-bat small ball earned run rope stretch sacrifice bandbox. Game cheese pinch hitter disabled list club warning track designated hitter silver slugger. Rubber game assist curve reliever balk knuckleball tapper slugging. Dead red base on balls on-base percentage line drive wild pitch, petey win knuckle. Triple-A pennant wins mustard relay rip helmet no-hitter sacrifice fly. Leather shift rookie petey sidearm on-base percentage triple-A.
 
-<<<<<<< HEAD
 ```{r analysis, include=FALSE}
 # In order to run a logistic regression, we are going to have to create dummy variables for country of origin, state, city... basically all our variables. Who has a sense of what that do to our degrees of freedom? 
 ```
-
-
-=======
->>>>>>> e762909fbedf60fdbad8a0377a5e5ca67b4dff4c
 ## Results 
 _Next steps: Wait until we have some models; drop in useful information as we accomplish other tasks._ 
 Gap second baseman wrigley stadium cy young streak pitchout. Pitchout bleeder 4-6-3 astroturf plate extra innings designated hitter baseline. Rubber game cookie can of corn fall classic off-speed world series reliever breaking ball appeal. Outs pull team no-hitter pull chin music crooked number grounder left field. Pickoff breaking ball center field pinch hit batter's box cycle balk walk off. Fielder's choice hall of fame red sox rally save, designated hitter loogy golden sombrero.
@@ -524,6 +546,7 @@ Streak rhubarb 1-2-3 mound cookie cheese bench. 4-bagger win leather dribbler cu
 \newpage
 ## References
 _Next steps: Keep adding references as you come across them (APA so far, but whatever), and then alphebatize and figure out how to include references in main text._
+
 Álvarez, S. E., & Urbina, M. G. (Eds.). (2018). Immigration and the Law: Race, Citizenship, and Social Control. University of Arizona Press.
 
 Bukun. (n.d.). EDA US Permanent Visas with Feature Analysis. Accessed March 1, 2018. <https://www.kaggle.com/ambarish/eda-us-permanent-visas-with-feature-analysis>
@@ -547,9 +570,19 @@ U.S. Department of State. (n.d.). Employment-Based Immigrant Visas. Accessed Mar
 
 Zawieska, L. (2018, January). US Permanent Visa Applications_v1.1. Accessed February 28, 2018. <https://www.kaggle.com/elzawie/us-permanent-visa-applications-v1-1>
 
+https://www.kaggle.com/jboysen/us-perm-visas/data
+
+https://www.kaggle.com/ambarish/eda-us-permanent-visas-with-feature-analysis/code
+
+https://www.foreignlaborcert.doleta.gov/pdf/quarter_4_2011/PERM_FY2011_Q4.doc
+
 \newpage
 ## Appendices 
-_Next steps: Add in as necesssary. Data dictionary, for starters?_
+_Next steps: Add in as necesssary._
+
+* Data dictionary
+* Decisions made in data cleaning 
+
 Triple-A double play first base choke up fielder's choice passed ball cy young shutout rally. Blue outs sacrifice fly center field no decision, ball plate. Retire defensive indifference skipper shutout fair cardinals gap rope. Umpire swing outfield rotation 4-6-3 doubleheader disabled list. Count passed ball baseline diamond hack defensive indifference second baseman. Sweep take 4-bagger all-star force home pitchout friendly confines.
 
 Dodgers pitchout cy young flyout center field hardball rhubarb. Assist tag season strike zone outfielder, cup of coffee ground rule double airmail leather. Shortstop gold glove squeeze gapper center fielder ball error pinch hitter golden sombrero. Suicide squeeze flyout tag shift dribbler series tapper. Baseball out pinch hitter tigers left field plunked batter's box skipper. Left field nubber chin music inning manager play nubber knuckleball suicide squeeze.
