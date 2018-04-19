@@ -2,7 +2,7 @@
 ##Clean wage data to YR units and to remove incorrectly entered observations
 library(readr)
 #Import dataset from GitHub Files
-data<-read.csv("data/1035PM_4-3-18_2008_2018_PERM.csv")
+data<-read_csv("~/Documents/GitHub/I_HOPE_THIS_WORKS.csv")
 data$country_of_origin <- toupper(data$country_of_origin)
 data$pw_unit_of_pay <- toupper(data$pw_unit_of_pay)
 table(data$pw_unit_of_pay)
