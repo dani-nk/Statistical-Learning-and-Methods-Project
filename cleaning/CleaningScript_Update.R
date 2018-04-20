@@ -2,7 +2,7 @@
 ##Clean wage data to YR units and to remove incorrectly entered observations
 library(readr)
 #Import dataset from GitHub Files
-data<-read.csv("~/Desktop/AEM_project_data_files/visas.csv")
+data<-read.csv("~/Documents/GitHub/Statistical-Learning-and-Methods-Project/visas.csv")
 data$country_of_origin <- toupper(data$country_of_origin)
 data$pw_unit_of_pay <- toupper(data$pw_unit_of_pay)
 data$case_status <- toupper(data$case_status)
