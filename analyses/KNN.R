@@ -51,6 +51,7 @@ visasclean = visasclean[complete.cases(visasclean), ]
 require(caTools)
 set.seed(1) 
 sample = sample.split(visasclean$case_status_quant, SplitRatio = .50)
+#Splitting into 0.50 becuase test and train have to be the same in KNN (I think)
 train = subset(visasclean, sample == TRUE)
 train.Y <- train %>% select(case_status_quant)
 train.X = train %>% select(-case_status_quant, -case_status_new, -case_status)
@@ -60,13 +61,7 @@ test.X = test %>% select(-case_status_quant, -case_status_new, -case_status)
 
 # KNN - Code doesn't work. 
 # knn.pred=knn(train=train.X,test=test.X,cl=train.Y,k=1)
-# Doesn't work
+# Doesn't work; need only numeric variables
 # train.Y.new <- train.Y[,1, drop=TRUE]
 # knn.pred=knn(train.X,test.X,train.Y.new,k=1)
-# Still doesn't work, despite removing non-numeric variables. 
-
-# Erika's code for splitting 
-# set.seed(1)
-# train <- sample(1:nrow(visasclean), 0.7*nrow(visasclean))
-# visasclean.train <- visasclean[train ,]
-# visasclean.test <- visasclean[-train ,]
+# Still doesn't work, despite removing all variables that aren't factors or numbers. 
