@@ -177,7 +177,7 @@ X1035PM_4_3_18_2008_2018_PERM$case_status_new <- replace(X1035PM_4_3_18_2008_201
 no_withdrawn<-subset(X1035PM_4_3_18_2008_2018_PERM, case_status_new=="CERTIFIED" | case_status_new=="DENIED")
 no_withdrawn$case_status_quant <- ifelse(no_withdrawn$case_status_new=="CERTIFIED",1,0)
 X1035PM_4_3_18_2008_2018_PERM <- no_withdrawn
-as.factor(naics_code_new)
+X1035PM_4_3_18_2008_2018_PERM$naics_code_new <- as.factor(X1035PM_4_3_18_2008_2018_PERM$naics_code_new)
 
 ##Fix state names
 #Cleaning state data 
