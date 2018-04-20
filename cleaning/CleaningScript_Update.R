@@ -298,4 +298,4 @@ table(X1035PM_4_3_18_2008_2018_PERM$employer_state)
 
 visas <- X1035PM_4_3_18_2008_2018_PERM
 View(visas)
-# write_csv(visas, "visasclean.csv")
+# write_csv(visas, "~/Documents/GitHub/visasclean.csv")
