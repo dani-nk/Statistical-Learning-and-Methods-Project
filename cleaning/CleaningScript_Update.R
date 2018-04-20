@@ -2,7 +2,7 @@
 ##Clean wage data to YR units and to remove incorrectly entered observations
 library(readr)
 #Import dataset from GitHub Files
-data<-read.csv("~/Documents/GitHub/Statistical-Learning-and-Methods-Project/visas.csv")
+data<-read.csv("~/Documents/GitHub/visas.csv")
 data$country_of_origin <- toupper(data$country_of_origin)
 data$pw_unit_of_pay <- toupper(data$pw_unit_of_pay)
 data$case_status <- toupper(data$case_status)
@@ -177,6 +177,7 @@ X1035PM_4_3_18_2008_2018_PERM$case_status_new <- replace(X1035PM_4_3_18_2008_201
 no_withdrawn<-subset(X1035PM_4_3_18_2008_2018_PERM, case_status_new=="CERTIFIED" | case_status_new=="DENIED")
 no_withdrawn$case_status_quant <- ifelse(no_withdrawn$case_status_new=="CERTIFIED",1,0)
 X1035PM_4_3_18_2008_2018_PERM <- no_withdrawn
+X1035PM_4_3_18_2008_2018_PERM$naics_code_new <- as.factor(X1035PM_4_3_18_2008_2018_PERM$naics_code_new)
 
 ##Fix state names
 #Cleaning state data 
