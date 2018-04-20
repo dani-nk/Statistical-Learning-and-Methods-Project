@@ -2,9 +2,24 @@
 ##Clean wage data to YR units and to remove incorrectly entered observations
 library(readr)
 #Import dataset from GitHub Files
-data<-read_csv("~/Documents/GitHub/I_HOPE_THIS_WORKS.csv")
+data<-read.csv("~/Desktop/AEM_project_data_files/visas.csv")
 data$country_of_origin <- toupper(data$country_of_origin)
 data$pw_unit_of_pay <- toupper(data$pw_unit_of_pay)
+data$case_status <- toupper(data$case_status)
+data$employer_name <- toupper(data$employer_name)
+data$employer_city <- toupper(data$employer_city)
+data$employer_state <- toupper(data$employer_state)
+data$job_city <- toupper(data$job_city)
+data$job_state <- toupper(data$job_state)
+data$job_state <- toupper(data$job_state)
+data$pw_job_title <- toupper(data$pw_job_title)
+data$naics_title <- toupper(data$naics_title)
+
+
+
+#View(data)
+
+
 table(data$pw_unit_of_pay)
 
 #Translate to caps 2-char units
