@@ -9,7 +9,6 @@ author:
 date: "`r format(Sys.time(), '%d %B %Y')`"
 output: pdf_document  
 ---
-
 ```{r setup, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE, cache = TRUE, message=FALSE, warning=FALSE)
 library(tidyverse) # For everything 
@@ -18,7 +17,7 @@ library(kableExtra) # For tables
 theme_set(theme_minimal()) # Sets default theme, I think  
 # As always, if a package doesn't exist, try install.packages("name-of-package") and then library(name-of-package).
 
-visas <- read_csv("~/Documents/GitHub/visasclean.csv")
+visasclean <- read_csv("~/Documents/GitHub/visasclean.csv")
 # This dataset is the result of DANI's visas.csv plus the CleaningScript_Update.R script. 
 
 # According to Matt Worthington, in order to be able to print to PDF fro RStudio, you have to install XQuartz and MacTex. Those links are here: https://mrworthington.github.io/lbj/mac.html. If you're not on a Mac, hover over 'the Pre-Workshop' tab. 
@@ -91,11 +90,11 @@ After cleaning data (See Appendix B) and removing applications withdrawn by the 
 
 ```{r plot of applications over time and original case status, include=FALSE}
 # List of variables for the paragraph above 
-# ls(newdata_no_typo_wages)
+# ls(visasclean)
 
 # Cleaning and plotting over time 
-visas$year <- year(visas$decision_date)
-overtime <- ggplot(visas, aes(year)) + geom_bar(stat="count", aes(fill=case_status)) + labs(list(title='US Permenent Visa Applications', x='Year', y=''))
+visasclean$year <- year(visas$decision_date)
+overtime <- ggplot(visasclean, aes(year)) + geom_bar(stat="count", aes(fill=case_status)) + labs(list(title='US Permenent Visa Applications', x='Year', y=''))
 ```
 
 ```{r applications over time, echo=FALSE}
@@ -125,8 +124,8 @@ _Notes and questions:_
 # pairs(Auto)
 # pairs(∼ mpg + displacement + horsepower + weight + acceleration , Auto)
 # This probably doesn't work for us, because of all the non-numberic, non-continuous variables. 
-
-summary(visas)
+cor(visasclean)
+summary(visasclean)
 
 ```
 
@@ -134,88 +133,87 @@ summary(visas)
 # This is a messy start. 
 
 # case_status
-ggplot(visas) +
+ggplot(visasclean) +
   geom_bar(mapping = aes(x = case_status))
 
 # decision_date
 # Mark wants a line graph of decisions made, following a bar chart of decisions made each year, split into the four case_status categories. 
 
 # country_of_origin
-visas %>% 
+visasclean %>% 
   count(country_of_origin, sort=T)
 # Can we make this a world map instead, perhaps shaded according to likelihood of success? 
 
 # class_of_admission 
-visas %>% 
+visasclean %>% 
   count(class_of_admission, sort=T)
 
 # employer_name
-visas %>% 
+visasclean %>% 
   count(employer_name, sort=T)
 # Histogram or line chart of number of applications v. employer_name? 
 # Something representing most and least successful companies? 
 
 # employer_city
-visas %>% 
+visasclean %>% 
   count(employer_city, sort=T)
 # Turn into map?
 
 # employer_state
-visas %>% 
+visasclean %>% 
   count(employer_state, sort=T)
 # Turn into map? Show trends over time, somehow? Could do interactive online. 
 
 # employer_zip
-visas %>% 
+visasclean %>% 
   count(employer_zip, sort=T)
 # Turn into map? Show trends over time, somehow? Could do interactive online. 
 
 # naics_title 
-visas %>% 
+visasclean %>% 
   count(naics_title, sort=T)
 
 # pw_job_title
-visas %>% 
+visasclean %>% 
   count(pw_job_title, sort=T)
 
 # pw_level
-visas %>% 
+visasclean %>% 
   count(pw_level, sort=T)
 
 # pw_amount
-ggplot(visas) +
+ggplot(visasclean) +
   geom_histogram(mapping = aes(x = pw_amount), binwidth = 10000) +
   coord_cartesian(xlim = c(0, 250000))
 # Is this salary? If so, check for those outliers. 
 
 # pw_unit_of_pay
-visas %>% 
+visasclean %>% 
   count(pw_unit_of_pay, sort=T)
 # Ah. This is complicated. 
 
 # wage_offer_from
-ggplot(visas) + 
+ggplot(visasclean) + 
   geom_histogram(mapping = aes(x = wage_offer_from), binwidth = 10000) +
   coord_cartesian(xlim = c(0, 250000))
 # Is this salary? If so, check for those outliers. 
 
 # wage_offer_to
-ggplot(visas) + 
+ggplot(visasclean) + 
   geom_histogram(mapping = aes(x = wage_offer_to), binwidth = 10000) +
   coord_cartesian(xlim = c(0, 250000))
 # Is this salary? If so, check for those outliers. 
 
 # job_city
-visas %>% 
+visasclean %>% 
   count(job_city, sort=T)
 # Turn into map? Compare to employer_city? 
 
 # job_state
-visas %>% 
+visasclean %>% 
   count(job_state, sort=T)
 # Turn into map? Compare to employer_state? 
 ```
-
 
 ### Limitations
 _Add stuff here as we find problems with the dataset/have to make decisions about what to include/discard._
@@ -307,3 +305,4 @@ Line drive cookie triple-A outfielder diamond club cookie. Force outs triple pla
 Relief pitcher flyout national pastime interleague no decision butcher boy team relief pitcher sidearm. Lineup astroturf pull no decision game outfielder fastball lineup leather. Corner third base cubs save tapper manager breaking ball. Pinch runner range dead red force knuckleball basehit hey batter. Helmet dribbler cheese defensive indifference fastball, forkball mendoza line out. Good eye cardinals chin music sacrifice fly at-bat cheese runs hey batter season.
 
 Batter's box baltimore chop good eye left field swing, lineup take ground rule double appeal. Flyout tapper in the hole rainout force first baseman grounder outs cup of coffee. Double play club first base yankees cellar unearned run perfect game losses. Ball outfielder bunt leadoff triple-A starter cy young home curve. Grass reds tigers loss sabremetrics designated hitter skipper. Ejection 4-bagger pennant bleeder rip series slugging.
+ 
