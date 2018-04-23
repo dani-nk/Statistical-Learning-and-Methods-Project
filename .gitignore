@@ -2,3 +2,5 @@
 .Rhistory
 .RData
 .Ruserdata
+/data/visas.csv
+/data/visasclean.csv
