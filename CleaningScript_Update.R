@@ -2,7 +2,7 @@
 ##Clean wage data to YR units and to remove incorrectly entered observations
 library(readr)
 #Import dataset from GitHub Files
-data<-read.csv("~/Documents/GitHub/visas.csv")
+data<-read.csv("~/Documents/GitHub/Statistical-Learning-and-Methods-Project/visas.csv")
 data$country_of_origin <- toupper(data$country_of_origin)
 data$pw_unit_of_pay <- toupper(data$pw_unit_of_pay)
 data$case_status <- toupper(data$case_status)
@@ -338,4 +338,13 @@ visasclean %>% mutate(job_state_new =
                                                                                 ifelse(visasclean$job_state == "MA", "MA", 
                                                                                        ifelse(visasclean$job_state == "GA", "GA", ifelse(visasclean$job_state == "MI", "MI", ifelse(visasclean$job_state == "PA", "PA", ifelse(visasclean$job_state == "NC", "NC", ifelse(visasclean$job_state == "MD", "MD", ifelse(visasclean$job_state == "OH", "OH",         
                                                                                                                                                                                                                                                                                                                      "OTHER")))))))))))))))) -> visasclean
+# Removing NAS
+visasclean %>% select(-wage_offer_to) -> visasclean
+sapply(visasclean, function(x) sum(is.na(x)))
+# Then: Select for complete rows
+visasclean = visasclean[complete.cases(visasclean), ]
+# Leaves us with 514,522 observations.
+
 write_csv(visas, "~/Documents/GitHub/visasclean.csv")
+
+dim(visasclean)
