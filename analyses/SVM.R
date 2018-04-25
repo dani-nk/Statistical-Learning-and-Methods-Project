@@ -1,8 +1,11 @@
 # Replicating p. 359 in ISL.
 
 library(tidyverse) # for everything 
-visas <- read_csv("~/Documents/GitHub/Statistical-Learning-and-Methods-Project/visasclean.csv")
 library(e1071)
+library(lubridate)
+visas <- read_csv("~/Documents/GitHub/Statistical-Learning-and-Methods-Project/visasclean.csv")
+visas %>% mutate(Year = year(decision_date)) -> visas
+visas %>% filter(Year==2016) -> visas2016
 
 set.seed (1)
 x=matrix(rnorm(20*2), ncol=2)
@@ -33,7 +36,7 @@ ypred=predict(bestmod ,testdat)
 table(predict=ypred, truth=testdat$y)
 
 # "kernel=" allows for non-linear decision boundaries. 
-svmfit=svm(case_status_quant~pop_muslim, data=visas, kernel="linear", cost=10, scale=FALSE)
+svmfit=svm(case_status_quant~pop_muslim, data=visas2016, kernel="linear", cost=10, scale=FALSE)
 plot(svmfit , dat)
 svmfit$index
 summary(svmfit)
