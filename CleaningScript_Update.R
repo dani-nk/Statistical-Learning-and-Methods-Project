@@ -338,13 +338,14 @@ visasclean %>% mutate(job_state_new =
                                                                                 ifelse(visasclean$job_state == "MA", "MA", 
                                                                                        ifelse(visasclean$job_state == "GA", "GA", ifelse(visasclean$job_state == "MI", "MI", ifelse(visasclean$job_state == "PA", "PA", ifelse(visasclean$job_state == "NC", "NC", ifelse(visasclean$job_state == "MD", "MD", ifelse(visasclean$job_state == "OH", "OH",         
                                                                                                                                                                                                                                                                                                                      "OTHER")))))))))))))))) -> visasclean
-# Removing NAS
-visasclean %>% select(-wage_offer_to) -> visasclean
-sapply(visasclean, function(x) sum(is.na(x)))
-# Then: Select for complete rows
-visasclean = visasclean[complete.cases(visasclean), ]
-# Leaves us with 514,522 observations.
+## Removing NAS
+#visasclean %>% select(-wage_offer_to) -> visasclean
+#sapply(visasclean, function(x) sum(is.na(x)))
 
-write_csv(visas, "~/Documents/GitHub/visasclean.csv")
+## Then: Select for complete rows
+#visasclean = visasclean[complete.cases(visasclean), ]
 
-dim(visasclean)
+#dim(visasclean)
+## Leaves us with 514,522 observations.
+
+# write_csv(visas, "~/Documents/GitHub/visasclean.csv")
