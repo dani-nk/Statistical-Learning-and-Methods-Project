@@ -2,7 +2,6 @@
 ##Clean wage data to YR units and to remove incorrectly entered observations
 
 library(readr)
-visasclean <- read_csv("visasclean.csv")
 visas <- read_csv("visas.csv")
 
 data<-visas
@@ -296,7 +295,9 @@ visas$job_state[visas$job_state=="PUERTO RICO"] = "PR"
 visas$job_state[visas$job_state=="VIRGIN ISLANDS"] = "VI"
 table(visas$employer_state)
 
-View(visas)
+visasclean<-visas
+
+View(visasclean)
 
 ##Condense country_of_origin and class_of_admission
 visasclean %>% mutate(country_new = 
