@@ -2,6 +2,7 @@
 ##Clean wage data to YR units and to remove incorrectly entered observations
 
 library(readr)
+#visasclean <-read_csv("visasclean.csv")
 visas <- read_csv("visas.csv")
 
 data<-visas
@@ -46,7 +47,7 @@ newdata_no_typo_wages<-subset(data,annual_wage>=9600)
 #View(newdata_no_typo_wages)
 #write to data
 visas <- newdata_no_typo_wages
-View(visas)
+#View(visas)
 
 ##Append and clean country data
 #Read in country data from World Bank
@@ -295,6 +296,8 @@ visas$job_state[visas$job_state=="PUERTO RICO"] = "PR"
 visas$job_state[visas$job_state=="VIRGIN ISLANDS"] = "VI"
 table(visas$employer_state)
 
+dim(visas)
+
 visasclean<-visas
 
 View(visasclean)
@@ -338,6 +341,8 @@ visasclean %>% mutate(job_state_new =
                                                                                 ifelse(visasclean$job_state == "MA", "MA", 
                                                                                        ifelse(visasclean$job_state == "GA", "GA", ifelse(visasclean$job_state == "MI", "MI", ifelse(visasclean$job_state == "PA", "PA", ifelse(visasclean$job_state == "NC", "NC", ifelse(visasclean$job_state == "MD", "MD", ifelse(visasclean$job_state == "OH", "OH",         
                                                                                                                                                                                                                                                                                                                      "OTHER")))))))))))))))) -> visasclean
+dim(visasclean)
+
 ## Removing NAS
 visasclean %>% select(-wage_offer_to) -> visasclean
 sapply(visasclean, function(x) sum(is.na(x)))
@@ -347,7 +352,7 @@ sapply(visasclean, function(x) sum(is.na(x)))
 visasclean = visasclean[complete.cases(visasclean), ]
 
 dim(visasclean)
-## Leaves us with 514,522 observations.
+## Leaves us with 486,529 observations.
 
 # Add column for year
 visasclean$decision_year_numeric <- as.numeric(substr(as.character(visasclean$decision_date), 1, 4))
