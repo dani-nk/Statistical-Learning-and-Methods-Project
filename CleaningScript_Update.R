@@ -301,7 +301,7 @@ X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=
 table(X1035PM_4_3_18_2008_2018_PERM$employer_state)
 
 visas <- X1035PM_4_3_18_2008_2018_PERM
-View(visas)
+#View(visas)
 
 ##Condense country_of_origin and class_of_admission
 visasclean %>% mutate(country_new = 
@@ -352,4 +352,9 @@ visasclean = visasclean[complete.cases(visasclean), ]
 dim(visasclean)
 ## Leaves us with 514,522 observations.
 
+# Add column for year
+
+visasclean$decision_year <- as.numeric(substr(as.character(visasclean$decision_date), 1, 4))
+visasclean$decision_year <- as.factor(visasclean$decision_year)
 #write_csv(visas, "~/Documents/GitHub/visasclean.csv")
+#View(visasclean)
