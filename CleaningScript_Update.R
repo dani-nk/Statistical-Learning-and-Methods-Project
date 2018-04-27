@@ -349,8 +349,9 @@ dim(visasclean)
 ## Leaves us with 514,522 observations.
 
 # Add column for year
-
 visasclean$decision_year_numeric <- as.numeric(substr(as.character(visasclean$decision_date), 1, 4))
 visasclean$decision_year <- as.factor(visasclean$decision_year_numeric)
+
+#write
 write_csv(visas, "~/Documents/GitHub/visasclean.csv")
 #View(visasclean)
