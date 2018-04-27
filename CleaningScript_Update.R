@@ -5,7 +5,6 @@ library(readr)
 visasclean <- read_csv("visasclean.csv")
 visas <- read_csv("visas.csv")
 
-#Import dataset from GitHub Files
 data<-visas
 data$country_of_origin <- toupper(data$country_of_origin)
 data$pw_unit_of_pay <- toupper(data$pw_unit_of_pay)
@@ -22,7 +21,6 @@ data$naics_title <- toupper(data$naics_title)
 
 
 #View(data)
-
 
 table(data$pw_unit_of_pay)
 
@@ -48,15 +46,13 @@ data$annual_wage <- ifelse(data$pw_unit_of_pay=="MTH",data$pw_amount*12,data$ann
 newdata_no_typo_wages<-subset(data,annual_wage>=9600)
 #View(newdata_no_typo_wages)
 #write to data
-X1035PM_4_3_18_2008_2018_PERM <- newdata_no_typo_wages
-#View(X1035PM_4_3_18_2008_2018_PERM)
+visas <- newdata_no_typo_wages
+View(visas)
 
 ##Append and clean country data
 #Read in country data from World Bank
 countries <- read.csv("data/4f67b2ca-0887-4ec5-9155-e79b50faf5a8_Data.csv")
 #View(countries)
-#Read in visa data and create table of country frequencies
-visas <- X1035PM_4_3_18_2008_2018_PERM
 #View(visas)
 visas$country_of_origin <- replace(visas$country_of_origin, visas$country_of_origin=="BURMA (MYANMAR)","MYANMAR")
 visas$country_of_origin <- replace(visas$country_of_origin, visas$country_of_origin=="SOVIET UNION","RUSSIA")
@@ -173,135 +169,134 @@ countries3 <- merge(countries2, religion, by="country_of_origin", all=TRUE)
 #Merge into final visas2 dataset
 visas2 <- merge(visas,countries3,by="country_of_origin", all.x=TRUE)
 #View(visas2)
-X1035PM_4_3_18_2008_2018_PERM <- visas2
+visas<- visas2
 
 ##Reduce outcome variables to two classes
-X1035PM_4_3_18_2008_2018_PERM$naics_code_new <- as.numeric(substr(as.character(X1035PM_4_3_18_2008_2018_PERM$naics_code), 1, 2))
-X1035PM_4_3_18_2008_2018_PERM$case_status_new <- replace(X1035PM_4_3_18_2008_2018_PERM$case_status, X1035PM_4_3_18_2008_2018_PERM$case_status=="CERTIFIED-EXPIRED","CERTIFIED")
-no_withdrawn<-subset(X1035PM_4_3_18_2008_2018_PERM, case_status_new=="CERTIFIED" | case_status_new=="DENIED")
+visas$naics_code_new <- as.numeric(substr(as.character(visas$naics_code), 1, 2))
+visas$case_status_new <- replace(visas$case_status, visas$case_status=="CERTIFIED-EXPIRED","CERTIFIED")
+no_withdrawn<-subset(visas, case_status_new=="CERTIFIED" | case_status_new=="DENIED")
 no_withdrawn$case_status_quant <- ifelse(no_withdrawn$case_status_new=="CERTIFIED",1,0)
-X1035PM_4_3_18_2008_2018_PERM <- no_withdrawn
-X1035PM_4_3_18_2008_2018_PERM$naics_code_new <- as.factor(X1035PM_4_3_18_2008_2018_PERM$naics_code_new)
+visas <- no_withdrawn
+visas$naics_code_new <- as.factor(visas$naics_code_new)
 
 ##Fix state names
 #Cleaning state data 
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="WYOMING"] = "WY"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="CALIFORNIA"] = "CA"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="NEW JERSEY"] = "NJ"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="NEW YORK"] = "NY"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="WASHINGTON"] = "WA"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="ILLINOIS"] = "IL"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="MASSACHUSETTS"] = "MA"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="PENNSYLVANIA"] = "PA"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="VIRGINIA"] = "VA"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="MICHIGAN"] = "MI"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="FLORIDA"] = "FL"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="GEORGIA"] = "GA"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="OHIO"] = "OH"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="MARYLAND"] = "MD"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="NORTH CAROLINA"] = "NC"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="CONNECTICUT"] = "CT"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="ARIZONA"] = "AZ"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="WISCONSIN"] = "WI"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="MISSOURI"] = "MO"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="INDIANA"] = "IN"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="MINNESOTA"] = "MN"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="COLORADO"] = "CO"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="TENNESSEE"] = "TN"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="ALABAMA"] = "AL"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="DISTRICT OF COLUMBIA"] = "DC"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="KANSAS"] = "KS"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="KENTUCKY"] = "KY"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="IOWA"] = "IA"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="DELAWARE"] = "DE"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="ARKANSAS"] = "AR"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="ORGEGON"] = "OR"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="NEBRASKA"] = "NE"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="LOUISIANA"] = "LA"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="SOUTH CAROLINA"] = "SC"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="OKLAHOMA"] = "OK"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="NEW HAMPSHIRE"] = "NH"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="IDAHO"] = "ID"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="RHODE ISLAND"] = "RI"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="NEVADA"] = "NV"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="NEW MEXICO"] = "NM"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="MISSISSIPPI"] = "MS"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="VERMONT"] = "VT"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="SOUTH DAKOTA"] = "SD"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="WEST VIRGINIA"] = "WV"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="MAINE"] = "ME"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="GUAM"] = "GU"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="HAWAII"] = "HI"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="MONTANA"] = "MT"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="PUERTO RICO"] = "PR"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="TEXAS"] = "TX"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="OREGON"] = "OR"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="UTAH"] = "UT"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="NORTH DAKOTA"] = "ND"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="ALASKA"] = "AK"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="PUERTO RICO"] = "PR"
-X1035PM_4_3_18_2008_2018_PERM$employer_state[X1035PM_4_3_18_2008_2018_PERM$employer_state=="VIRGIN ISLANDS"] = "VI"
+visas$employer_state[visas$employer_state=="WYOMING"] = "WY"
+visas$employer_state[visas$employer_state=="CALIFORNIA"] = "CA"
+visas$employer_state[visas$employer_state=="NEW JERSEY"] = "NJ"
+visas$employer_state[visas$employer_state=="NEW YORK"] = "NY"
+visas$employer_state[visas$employer_state=="WASHINGTON"] = "WA"
+visas$employer_state[visas$employer_state=="ILLINOIS"] = "IL"
+visas$employer_state[visas$employer_state=="MASSACHUSETTS"] = "MA"
+visas$employer_state[visas$employer_state=="PENNSYLVANIA"] = "PA"
+visas$employer_state[visas$employer_state=="VIRGINIA"] = "VA"
+visas$employer_state[visas$employer_state=="MICHIGAN"] = "MI"
+visas$employer_state[visas$employer_state=="FLORIDA"] = "FL"
+visas$employer_state[visas$employer_state=="GEORGIA"] = "GA"
+visas$employer_state[visas$employer_state=="OHIO"] = "OH"
+visas$employer_state[visas$employer_state=="MARYLAND"] = "MD"
+visas$employer_state[visas$employer_state=="NORTH CAROLINA"] = "NC"
+visas$employer_state[visas$employer_state=="CONNECTICUT"] = "CT"
+visas$employer_state[visas$employer_state=="ARIZONA"] = "AZ"
+visas$employer_state[visas$employer_state=="WISCONSIN"] = "WI"
+visas$employer_state[visas$employer_state=="MISSOURI"] = "MO"
+visas$employer_state[visas$employer_state=="INDIANA"] = "IN"
+visas$employer_state[visas$employer_state=="MINNESOTA"] = "MN"
+visas$employer_state[visas$employer_state=="COLORADO"] = "CO"
+visas$employer_state[visas$employer_state=="TENNESSEE"] = "TN"
+visas$employer_state[visas$employer_state=="ALABAMA"] = "AL"
+visas$employer_state[visas$employer_state=="DISTRICT OF COLUMBIA"] = "DC"
+visas$employer_state[visas$employer_state=="KANSAS"] = "KS"
+visas$employer_state[visas$employer_state=="KENTUCKY"] = "KY"
+visas$employer_state[visas$employer_state=="IOWA"] = "IA"
+visas$employer_state[visas$employer_state=="DELAWARE"] = "DE"
+visas$employer_state[visas$employer_state=="ARKANSAS"] = "AR"
+visas$employer_state[visas$employer_state=="ORGEGON"] = "OR"
+visas$employer_state[visas$employer_state=="NEBRASKA"] = "NE"
+visas$employer_state[visas$employer_state=="LOUISIANA"] = "LA"
+visas$employer_state[visas$employer_state=="SOUTH CAROLINA"] = "SC"
+visas$employer_state[visas$employer_state=="OKLAHOMA"] = "OK"
+visas$employer_state[visas$employer_state=="NEW HAMPSHIRE"] = "NH"
+visas$employer_state[visas$employer_state=="IDAHO"] = "ID"
+visas$employer_state[visas$employer_state=="RHODE ISLAND"] = "RI"
+visas$employer_state[visas$employer_state=="NEVADA"] = "NV"
+visas$employer_state[visas$employer_state=="NEW MEXICO"] = "NM"
+visas$employer_state[visas$employer_state=="MISSISSIPPI"] = "MS"
+visas$employer_state[visas$employer_state=="VERMONT"] = "VT"
+visas$employer_state[visas$employer_state=="SOUTH DAKOTA"] = "SD"
+visas$employer_state[visas$employer_state=="WEST VIRGINIA"] = "WV"
+visas$employer_state[visas$employer_state=="MAINE"] = "ME"
+visas$employer_state[visas$employer_state=="GUAM"] = "GU"
+visas$employer_state[visas$employer_state=="HAWAII"] = "HI"
+visas$employer_state[visas$employer_state=="MONTANA"] = "MT"
+visas$employer_state[visas$employer_state=="PUERTO RICO"] = "PR"
+visas$employer_state[visas$employer_state=="TEXAS"] = "TX"
+visas$employer_state[visas$employer_state=="OREGON"] = "OR"
+visas$employer_state[visas$employer_state=="UTAH"] = "UT"
+visas$employer_state[visas$employer_state=="NORTH DAKOTA"] = "ND"
+visas$employer_state[visas$employer_state=="ALASKA"] = "AK"
+visas$employer_state[visas$employer_state=="PUERTO RICO"] = "PR"
+visas$employer_state[visas$employer_state=="VIRGIN ISLANDS"] = "VI"
 
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="WYOMING"] = "WY"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="CALIFORNIA"] = "CA"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="NEW JERSEY"] = "NJ"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="NEW YORK"] = "NY"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="WASHINGTON"] = "WA"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="ILLINOIS"] = "IL"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="MASSACHUSETTS"] = "MA"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="PENNSYLVANIA"] = "PA"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="VIRGINIA"] = "VA"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="MICHIGAN"] = "MI"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="FLORIDA"] = "FL"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="GEORGIA"] = "GA"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="OHIO"] = "OH"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="MARYLAND"] = "MD"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="NORTH CAROLINA"] = "NC"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="CONNECTICUT"] = "CT"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="ARIZONA"] = "AZ"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="WISCONSIN"] = "WI"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="MISSOURI"] = "MO"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="INDIANA"] = "IN"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="MINNESOTA"] = "MN"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="COLORADO"] = "CO"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="TENNESSEE"] = "TN"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="ALABAMA"] = "AL"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="DISTRICT OF COLUMBIA"] = "DC"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="KANSAS"] = "KS"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="KENTUCKY"] = "KY"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="IOWA"] = "IA"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="DELAWARE"] = "DE"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="ARKANSAS"] = "AR"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="ORGEGON"] = "OR"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="NEBRASKA"] = "NE"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="LOUISIANA"] = "LA"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="SOUTH CAROLINA"] = "SC"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="OKLAHOMA"] = "OK"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="NEW HAMPSHIRE"] = "NH"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="IDAHO"] = "ID"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="RHODE ISLAND"] = "RI"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="NEVADA"] = "NV"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="NEW MEXICO"] = "NM"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="MISSISSIPPI"] = "MS"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="VERMONT"] = "VT"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="SOUTH DAKOTA"] = "SD"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="WEST VIRGINIA"] = "WV"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="MAINE"] = "ME"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="GUAM"] = "GU"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="HAWAII"] = "HI"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="MONTANA"] = "MT"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="PUERTO RICO"] = "PR"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="TEXAS"] = "TX"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="OREGON"] = "OR"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="UTAH"] = "UT"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="NORTH DAKOTA"] = "ND"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="ALASKA"] = "AK"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="PUERTO RICO"] = "PR"
-X1035PM_4_3_18_2008_2018_PERM$job_state[X1035PM_4_3_18_2008_2018_PERM$job_state=="VIRGIN ISLANDS"] = "VI"
-table(X1035PM_4_3_18_2008_2018_PERM$employer_state)
+visas$job_state[visas$job_state=="WYOMING"] = "WY"
+visas$job_state[visas$job_state=="CALIFORNIA"] = "CA"
+visas$job_state[visas$job_state=="NEW JERSEY"] = "NJ"
+visas$job_state[visas$job_state=="NEW YORK"] = "NY"
+visas$job_state[visas$job_state=="WASHINGTON"] = "WA"
+visas$job_state[visas$job_state=="ILLINOIS"] = "IL"
+visas$job_state[visas$job_state=="MASSACHUSETTS"] = "MA"
+visas$job_state[visas$job_state=="PENNSYLVANIA"] = "PA"
+visas$job_state[visas$job_state=="VIRGINIA"] = "VA"
+visas$job_state[visas$job_state=="MICHIGAN"] = "MI"
+visas$job_state[visas$job_state=="FLORIDA"] = "FL"
+visas$job_state[visas$job_state=="GEORGIA"] = "GA"
+visas$job_state[visas$job_state=="OHIO"] = "OH"
+visas$job_state[visas$job_state=="MARYLAND"] = "MD"
+visas$job_state[visas$job_state=="NORTH CAROLINA"] = "NC"
+visas$job_state[visas$job_state=="CONNECTICUT"] = "CT"
+visas$job_state[visas$job_state=="ARIZONA"] = "AZ"
+visas$job_state[visas$job_state=="WISCONSIN"] = "WI"
+visas$job_state[visas$job_state=="MISSOURI"] = "MO"
+visas$job_state[visas$job_state=="INDIANA"] = "IN"
+visas$job_state[visas$job_state=="MINNESOTA"] = "MN"
+visas$job_state[visas$job_state=="COLORADO"] = "CO"
+visas$job_state[visas$job_state=="TENNESSEE"] = "TN"
+visas$job_state[visas$job_state=="ALABAMA"] = "AL"
+visas$job_state[visas$job_state=="DISTRICT OF COLUMBIA"] = "DC"
+visas$job_state[visas$job_state=="KANSAS"] = "KS"
+visas$job_state[visas$job_state=="KENTUCKY"] = "KY"
+visas$job_state[visas$job_state=="IOWA"] = "IA"
+visas$job_state[visas$job_state=="DELAWARE"] = "DE"
+visas$job_state[visas$job_state=="ARKANSAS"] = "AR"
+visas$job_state[visas$job_state=="ORGEGON"] = "OR"
+visas$job_state[visas$job_state=="NEBRASKA"] = "NE"
+visas$job_state[visas$job_state=="LOUISIANA"] = "LA"
+visas$job_state[visas$job_state=="SOUTH CAROLINA"] = "SC"
+visas$job_state[visas$job_state=="OKLAHOMA"] = "OK"
+visas$job_state[visas$job_state=="NEW HAMPSHIRE"] = "NH"
+visas$job_state[visas$job_state=="IDAHO"] = "ID"
+visas$job_state[visas$job_state=="RHODE ISLAND"] = "RI"
+visas$job_state[visas$job_state=="NEVADA"] = "NV"
+visas$job_state[visas$job_state=="NEW MEXICO"] = "NM"
+visas$job_state[visas$job_state=="MISSISSIPPI"] = "MS"
+visas$job_state[visas$job_state=="VERMONT"] = "VT"
+visas$job_state[visas$job_state=="SOUTH DAKOTA"] = "SD"
+visas$job_state[visas$job_state=="WEST VIRGINIA"] = "WV"
+visas$job_state[visas$job_state=="MAINE"] = "ME"
+visas$job_state[visas$job_state=="GUAM"] = "GU"
+visas$job_state[visas$job_state=="HAWAII"] = "HI"
+visas$job_state[visas$job_state=="MONTANA"] = "MT"
+visas$job_state[visas$job_state=="PUERTO RICO"] = "PR"
+visas$job_state[visas$job_state=="TEXAS"] = "TX"
+visas$job_state[visas$job_state=="OREGON"] = "OR"
+visas$job_state[visas$job_state=="UTAH"] = "UT"
+visas$job_state[visas$job_state=="NORTH DAKOTA"] = "ND"
+visas$job_state[visas$job_state=="ALASKA"] = "AK"
+visas$job_state[visas$job_state=="PUERTO RICO"] = "PR"
+visas$job_state[visas$job_state=="VIRGIN ISLANDS"] = "VI"
+table(visas$employer_state)
 
-visas <- X1035PM_4_3_18_2008_2018_PERM
-#View(visas)
+View(visas)
 
 ##Condense country_of_origin and class_of_admission
 visasclean %>% mutate(country_new = 
@@ -347,6 +342,7 @@ visasclean %>% select(-wage_offer_to) -> visasclean
 sapply(visasclean, function(x) sum(is.na(x)))
 
 ## Then: Select for complete rows
+
 visasclean = visasclean[complete.cases(visasclean), ]
 
 dim(visasclean)
@@ -354,7 +350,7 @@ dim(visasclean)
 
 # Add column for year
 
-visasclean$decision_year <- as.numeric(substr(as.character(visasclean$decision_date), 1, 4))
-visasclean$decision_year <- as.factor(visasclean$decision_year)
-#write_csv(visas, "~/Documents/GitHub/visasclean.csv")
+visasclean$decision_year_numeric <- as.numeric(substr(as.character(visasclean$decision_date), 1, 4))
+visasclean$decision_year <- as.factor(visasclean$decision_year_numeric)
+write_csv(visas, "~/Documents/GitHub/visasclean.csv")
 #View(visasclean)
